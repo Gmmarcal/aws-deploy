@@ -29,6 +29,11 @@ pipeline {
         }
       }
     }
+ stage('Dependency Check') {
+            steps {
+                dependencyCheck additionalArguments: '--format JSON', odcInstallation: 'OWASP Dependency-Check', scanPath: 'target/dependency-check-report'
+            }
+        }
 stage('Build and Push Docker Image') {
     environment {
         DOCKER_IMAGE = "marcalx/ultimate-cicd:${BUILD_NUMBER}"
