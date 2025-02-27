@@ -31,7 +31,7 @@ pipeline {
     }
  stage('Dependency Check') {
             steps {
-                dependencyCheck additionalArguments: '--format JSON', odcInstallation: 'OWASP Dependency-Check', scanPath: 'java-maven-sonar-argocd-helm-k8s/spring-boot-app/target/dependency-check-report'
+                dependencyCheck additionalArguments: '--format JSON', odcInstallation: 'OWASP Dependency-Check', scanPath: 'java-maven-sonar-argocd-helm-k8s/spring-boot-app'
             }
         }
 stage('Build and Push Docker Image') {
