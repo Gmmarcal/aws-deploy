@@ -31,10 +31,7 @@ pipeline {
     }
  stage('OWASP Dependency-Check Scan') {
             steps {
-                // Run Dependency-Check scan on the project
-                dependencyCheck additionalArguments: '', scanSet: 'java-maven-sonar-argocd-helm-k8s/spring-boot-app'
-                
-                // Publish the Dependency-Check report after the scan
+                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
