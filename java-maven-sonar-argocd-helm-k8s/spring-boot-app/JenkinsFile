@@ -32,7 +32,7 @@ pipeline {
  stage('OWASP Dependency-Check Scan') {
             steps {
                 // Run Dependency-Check scan on the project
-                dependencyCheck additionalArguments: '', scanPath: 'java-maven-sonar-argocd-helm-k8s/spring-boot-app'
+                dependencyCheck additionalArguments: '', scanSet: 'java-maven-sonar-argocd-helm-k8s/spring-boot-app'
                 
                 // Publish the Dependency-Check report after the scan
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
