@@ -35,6 +35,11 @@ pipeline {
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
+stage('Verificar Diretório') {
+    steps {
+        sh 'ls -l /var/lib/jenkins/tools/org.jenkinsci.plugins.DependencyCheck.tools.DependencyCheckInstallation/Dependency_Check/bin/'
+    }
+}
 stage('Build and Push Docker Image') {
     environment {
         DOCKER_IMAGE = "marcalx/ultimate-cicd:${BUILD_NUMBER}"
