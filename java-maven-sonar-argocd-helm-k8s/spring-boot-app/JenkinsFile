@@ -9,7 +9,7 @@ pipeline {
     stage('Checkout') {
       steps {
         sh 'echo passed'
-       // git branch: 'main', url: 'https://github.com/Gmmaaaarcal/aws-deploy.git'
+       // git branch: 'main', url: 'https://github.com/Gmmarcal/aws-deploy.git'
       }
     }
     stage('Build and Test') {
@@ -31,7 +31,7 @@ pipeline {
 }
  stage('OWASP Dependency-Check Scan') {
             steps {
-                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit'
+                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
