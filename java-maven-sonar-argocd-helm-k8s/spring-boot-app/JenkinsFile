@@ -21,7 +21,7 @@ pipeline {
     }
  stage('OWASP Dependency-Check Scan') {
             steps {
-                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'Dependency Check'
+                dependencyCheck additionalArguments: sh '/home/ubuntu/dependency-check/bin/dependency-check.sh--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'Dependency Check'
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
