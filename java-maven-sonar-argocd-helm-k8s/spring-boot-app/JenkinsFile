@@ -19,9 +19,19 @@ pipeline {
         sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
       }
     }
+    stage('Static Code Analysis') {
+      environment {
+        SONAR_URL = "http://34.234.82.78:9000"
+      }
+      steps {
+        withCredentials([string(credentialsId: 'tokenjenkins', variable: 'SONAR_AUTH_TOKEN')]) {
+          sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
+        }
+      }
+}
  stage('OWASP Dependency-Check Scan') {
             steps {
-                dependencyCheck additionalArguments: sh '/home/ubuntu/dependency-check/bin/dependency-check.sh--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'Dependency Check'
+                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'Dependency Check'
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
@@ -67,4 +77,3 @@ stage('Build and Push Docker Image') {
     }
   }
 }
-
